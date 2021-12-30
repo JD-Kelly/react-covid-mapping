@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import React, { Component } from "react";
+import axios from "axios";
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const initialState = {
+  countries_data: [],
+  data_loaded: false
+};
+
+class App extends Component{
+  state = initialState;
+
+  componentDidMount() {
+    this.fetchCountryData();
+  }
+
+  fetchCountryData = async () => {
+    try {
+      const response = await axios({
+        method:"get",
+        url: "https://corona-api.com/countries",
+      });
+      console.log(response.data.data);
+    } catch (e) {
+      console.log("unable to retrieve data", e);
+    }
+  }
+
+  render() {
+    const { countries_data, data_loaded } = this.state;
+
+    return data_loaded ?  (
+      <div className="root">
+      </div>
+    ) : null;
+  }
 }
+
+
+
+
+
 
 export default App;
