@@ -1,13 +1,23 @@
 import React, { Component } from "react";
-import { coordinates } from "./country_coordinates"
 import axios from "axios";
+
+import { coordinates } from "./country_coordinates"
+import Legend  from "./components/Legend"
 
 import './App.css';
 
 const initialState = {
+  colors: [
+    "rgba(5, 155, 247, 0.7)",
+    "rgba(233,30,99,0.7)",
+    "rgba(53,211,156,0.7)",
+  ],
   countries_data: [],
-  data_loaded: false
+  data_loaded: false,
+  fields: ['confirmed', 'deaths', 'recovered'],
+  query: "confirmed"
 };
+
 
 class App extends Component{
   state = initialState;
@@ -60,13 +70,17 @@ obj['coordinates'] = {
     return processed;
 };
 
-  
-
   render() {
-    const { countries_data, data_loaded } = this.state;
+    const { colors, countries_data, data_loaded, fields, query } = this.state;
 
     return data_loaded ?  (
       <div className="root">
+        <Legend
+          colors={colors}
+          fields={fields}
+          query={query}
+          handleSelectLegend={this.handleSetQuery}
+          />
       </div>
     ) : null;
   }
