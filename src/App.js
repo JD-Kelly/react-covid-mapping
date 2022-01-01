@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { coordinates } from "./country_coordinates"
-import Legend  from "./components/Legend"
+import { coordinates } from "./country_coordinates";
+import Legend  from "./components/Legend";
+import Map from "./components/Map";
 
 import './App.css';
 
@@ -70,6 +71,12 @@ obj['coordinates'] = {
     return processed;
 };
 
+handleSetQuery = (query) => {
+  this.setState({
+    query,
+  });
+};
+
   render() {
     const { colors, countries_data, data_loaded, fields, query } = this.state;
 
@@ -81,14 +88,18 @@ obj['coordinates'] = {
           query={query}
           handleSelectLegend={this.handleSetQuery}
           />
+
+          <Map
+          colors={colors}
+          data={countries_data}
+          fields={fields}
+          query={query}
+        />
+
       </div>
     ) : null;
   }
 
 }
-
-
-
-
 
 export default App;
