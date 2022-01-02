@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl" ;
+import Tooltip from "./Tooltip";
 
 const TOKEN ="pk.eyJ1IjoiamRrMjIiLCJhIjoiY2t4dndjZDNkNGI2eDJ4dWJ0ejltcDBqOCJ9.vYViakof9idXCnrYBBnB_A"
 
@@ -68,6 +69,9 @@ this.setState({
     });
   };
 
+  handleCloseTooltip = () => {
+    this.setState({tooltip: null})
+  }
 
   render() {
     const {map_data, tooltip, viewport } = this.state;
@@ -98,6 +102,15 @@ this.setState({
         </Marker>
           );
         })}
+
+        {tooltip && (
+          <Tooltip
+          details={tooltip}
+          fields={fields}
+          handleCloseTooltip={this.handleCloseTooltip}
+          />
+        )}
+        
         <div className="map-nav">
           <NavigationControl
         onViewportChange={(viewport) => this.setState({ viewport })}
