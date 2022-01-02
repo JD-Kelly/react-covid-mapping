@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
 import { coordinates } from "./country_coordinates";
 import Legend  from "./components/Legend";
 import Map from "./components/Map";
+
 
 import './App.css';
 
@@ -89,7 +91,7 @@ handleSetQuery = (query) => {
           handleSelectLegend={this.handleSetQuery}
           />
 
-          <Map
+        <Map
           colors={colors}
           data={countries_data}
           fields={fields}
